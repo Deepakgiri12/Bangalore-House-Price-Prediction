@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bangalore House Price Prediction</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Bangalore House Price Prediction</h1>
+
+        <div class="form-group">
+            <label>Location</label>
+            <select id="location">
+                <option value="">Select Location</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Square Feet</label>
+            <input type="number" id="sqft" placeholder="Enter square feet">
+        </div>
+
+        <div class="form-group">
+            <label>BHK</label>
+            <input type="number" id="bhk" placeholder="Enter BHK">
+        </div>
+
+        <div class="form-group">
+            <label>Bathrooms</label>
+            <input type="number" id="bath" placeholder="Enter bathrooms">
+        </div>
+
+        <button onclick="predictPrice()">Predict Price</button>
+
+        <h2 id="result"></h2>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
