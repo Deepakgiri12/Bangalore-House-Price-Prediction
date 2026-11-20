@@ -7,7 +7,7 @@ app.use(express.json());
 
 app.use(express.static(path.join(__dirname, '../client')));
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const fs = require('fs');
 
@@ -100,6 +100,6 @@ app.post('/predict_home_price', (req, res) => {
 });
 
 
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
 });
