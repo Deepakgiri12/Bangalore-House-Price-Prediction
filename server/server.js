@@ -63,21 +63,31 @@ app.post('/predict_home_price', (req, res) => {
 
         const { location, sqft, bath, bhk } = req.body;
 
+        // 1. Basic input validation
         if (
             typeof location !== 'string' ||
-            !location ||
+            !location.trim() ||
             !Number.isFinite(sqft) ||
             !Number.isFinite(bath) ||
-            !Number.isFinite(bhk) ||
-            sqft <= 0 ||
-            bath <= 0 ||
-            bhk <= 0
+            !Number.isFinite(bhk)
         ) {
             return res.status(400).json({
                 error: 'Please provide valid house details'
             });
         }
 
+        // 2. Realistic value validation
+        if (
+            sqft < 300 || sqft > 10000 ||
+            bhk < 1 || bhk > 10 ||
+            bath < 1 || bath > 10
+        ) {
+            return res.status(400).json({
+                error: 'Please enter realistic house details'
+            });
+        }
+
+        // 3. Predict price
         const estimatedPrice = predictPrice(
             location,
             sqft,
@@ -85,6 +95,14 @@ app.post('/predict_home_price', (req, res) => {
             bhk
         );
 
+        // 4. Prediction validation
+        if (!Number.isFinite(estimatedPrice) || estimatedPrice <= 0) {
+            return res.status(400).json({
+                error: 'Unable to predict a valid price for these inputs'
+            });
+        }
+
+        // 5. Send successful response
         res.json({
             estimated_price: estimatedPrice
         });
